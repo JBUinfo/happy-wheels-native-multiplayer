@@ -1,0 +1,59 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Happy Wheels · LAN Ghost Prototype</title>
+    <style>
+      :root { color-scheme: dark; font-family: ui-sans-serif, system-ui, sans-serif; background: #111827; color: #f3f4f6; }
+      * { box-sizing: border-box; }
+      body { margin: 0; min-height: 100vh; }
+      header { padding: 20px clamp(16px, 4vw, 48px) 12px; }
+      h1 { margin: 0; font-size: clamp(1.3rem, 3vw, 2rem); }
+      header p { margin: 6px 0 0; color: #aeb8c7; }
+      main { width: min(1200px, 100%); margin: 0 auto; padding: 12px clamp(16px, 4vw, 48px) 36px; }
+      .panel { display: flex; flex-wrap: wrap; align-items: end; gap: 12px; padding: 16px; background: #1c2636; border: 1px solid #354257; border-radius: 12px 12px 0 0; }
+      label { display: grid; gap: 5px; color: #bdc7d5; font-size: .82rem; }
+      input { min-width: 130px; padding: 9px 10px; border: 1px solid #53627a; border-radius: 6px; color: #fff; background: #111827; font: inherit; }
+      #server { min-width: 230px; }
+      button { padding: 9px 16px; border: 0; border-radius: 6px; color: #08111d; background: #68d4ff; font: inherit; font-weight: 700; cursor: pointer; }
+      button:disabled { opacity: .5; cursor: default; }
+      #status { margin-left: auto; min-width: 150px; color: #ffd166; font-size: .9rem; }
+      #status[data-online="true"] { color: #82e0a2; }
+      canvas { display: block; width: 100%; height: min(60vh, 500px); min-height: 300px; border: 1px solid #354257; border-top: 0; border-radius: 0 0 12px 12px; background: #b4d9f5; }
+      .help { display: flex; flex-wrap: wrap; justify-content: space-between; gap: 8px 20px; padding: 12px 2px; color: #bdc7d5; font-size: .88rem; }
+      .help strong { color: #f3f4f6; }
+      #players { display: flex; flex-wrap: wrap; gap: 8px; padding: 8px 0; }
+      .player { display: inline-flex; align-items: center; gap: 7px; padding: 6px 10px; border: 1px solid #354257; border-radius: 99px; color: #dbe4ef; background: #1c2636; font-size: .82rem; }
+      .swatch { width: 10px; height: 10px; border-radius: 50%; }
+      footer { color: #94a3b8; font-size: .78rem; line-height: 1.5; }
+    </style>
+  </head>
+  <body>
+    <header>
+      <h1>Happy Wheels · LAN ghost prototype</h1>
+      <p>Network and racer-overlay proof of concept. This harness is not yet connected to the game's physics.</p>
+    </header>
+    <main>
+      <form class="panel" id="connect-form">
+        <label>Relay URL <input id="server" autocomplete="url"></label>
+        <label>Room <input id="room" maxlength="32" value="test-room" required></label>
+        <label>Name <input id="name" maxlength="24" value="Racer" required></label>
+        <button id="connect" type="submit">Connect</button>
+        <button id="disconnect" type="button" disabled>Disconnect</button>
+        <output id="status" aria-live="polite">Offline</output>
+      </form>
+      <div id="players" aria-live="polite"></div>
+      <canvas id="track" aria-label="Two-player network ghost race test track"></canvas>
+      <div class="help">
+        <span><strong>↑ / W</strong> accelerate · <strong>↓ / S</strong> brake · <strong>← / →</strong> balance · <strong>Space</strong> action</span>
+        <span id="transport">Input and position snapshots travel through the relay.</span>
+      </div>
+      <footer>
+        Prototype controls are a simple local simulation. The game bridge will replace this simulation after the Electron renderer hook is confirmed.
+        The relay has no login or encryption; keep it on a trusted LAN and do not port-forward it.
+      </footer>
+    </main>
+    <script type="module" src="/client.js"></script>
+  </body>
+</html>

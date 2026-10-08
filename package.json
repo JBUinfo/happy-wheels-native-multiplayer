@@ -1,0 +1,22 @@
+{
+  "name": "happy-wheels-native-multiplayer",
+  "version": "0.1.0",
+  "private": true,
+  "type": "module",
+  "description": "Native-physics multiplayer prototype for Happy Wheels",
+  "scripts": {
+    "start": "node src/server.mjs --host 0.0.0.0 --port 8765",
+    "dev": "node --watch src/server.mjs --host 127.0.0.1 --port 8765",
+    "game:launch": "node scripts/game-hook.mjs launch",
+    "game:refresh": "node scripts/game-hook.mjs refresh",
+    "game:restore": "node scripts/game-hook.mjs restore",
+    "game:status": "node scripts/game-hook.mjs status",
+    "peer": "node scripts/test-peer.mjs"
+  },
+  "dependencies": {
+    "ws": "^8.18.3"
+  },
+  "engines": {
+    "node": ">=20"
+  }
+}
